@@ -1,0 +1,168 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZBIP_ODATA_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="Products" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductId"/>
+                </Key>
+                <Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="PRODUCT_ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Content" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="CONTENT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="NAME" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="6" Scale="2" sap:unicode="false" sap:unit="CurrencyCode" sap:label="PRICE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="CURRENCY_CODE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="Orders" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderId"/>
+                </Key>
+                <Property Name="OrderId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ORDER_ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderNo" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ORDER_NO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="ORDER_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CustomerName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="CUSTOMER_NAME" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" Precision="6" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="TOTAL_AMOUNT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="CURRENCY" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="NavOrderItems" Relationship="ZBIP_ODATA_SRV.OrderItemAssociation" FromRole="FromRole_OrderItemAssociation" ToRole="ToRole_OrderItemAssociation"/>
+                <NavigationProperty Name="ToOrderCustomer" Relationship="ZBIP_ODATA_SRV.Asso_OrderCustomer" FromRole="FromRole_Asso_OrderCustomer" ToRole="ToRole_Asso_OrderCustomer"/>
+                <NavigationProperty Name="ToOrderDelivery" Relationship="ZBIP_ODATA_SRV.Asso_DeliveryDetails" FromRole="FromRole_Asso_DeliveryDetails" ToRole="ToRole_Asso_DeliveryDetails"/>
+            </EntityType>
+            <EntityType Name="OrderItems" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ItemId"/>
+                </Key>
+                <Property Name="ItemId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ITEM_ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ORDER_ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ItemNo" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ITEM_NO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="PRODUCT_ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Qty" Type="Edm.Decimal" Nullable="false" Precision="2" Scale="0" sap:unicode="false" sap:unit="Uom" sap:label="QTY" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uom" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="UOM" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="Customer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="NodeKey"/>
+                </Key>
+                <Property Name="NodeKey" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Node Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="E-Mail" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AddressGuid" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Node Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BpId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Business Partner ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Company" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LegalForm" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Legal Form" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="ToAddress" Relationship="ZBIP_ODATA_SRV.Asso_CustomerAddress" FromRole="FromRole_Asso_CustomerAddress" ToRole="ToRole_Asso_CustomerAddress"/>
+            </EntityType>
+            <EntityType Name="CustomerAddress" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="NodeKey"/>
+                </Key>
+                <Property Name="NodeKey" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Node Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="City" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Street" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Street" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Building" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Building" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AddressType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Address Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="12" sap:unicode="false" sap:label="Latitude" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="12" sap:unicode="false" sap:label="Longitude" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="DeliveryDetails" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderNo"/>
+                </Key>
+                <Property Name="OrderNo" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ORDER_NO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="DELIVERY_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RoutingPath" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="BIP Path" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CourierPartner" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Char255" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProductAttachment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductId"/>
+                </Key>
+                <Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Character field, length 32" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Content" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="CONTENT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Filename" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Char255" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Filetype" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Char255" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="Asso_CustomerAddress" sap:content-version="1">
+                <End Type="ZBIP_ODATA_SRV.Customer" Multiplicity="1" Role="FromRole_Asso_CustomerAddress"/>
+                <End Type="ZBIP_ODATA_SRV.CustomerAddress" Multiplicity="1" Role="ToRole_Asso_CustomerAddress"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asso_CustomerAddress">
+                        <PropertyRef Name="NodeKey"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asso_CustomerAddress">
+                        <PropertyRef Name="NodeKey"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Asso_OrderCustomer" sap:content-version="1">
+                <End Type="ZBIP_ODATA_SRV.Orders" Multiplicity="1" Role="FromRole_Asso_OrderCustomer"/>
+                <End Type="ZBIP_ODATA_SRV.Customer" Multiplicity="1" Role="ToRole_Asso_OrderCustomer"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asso_OrderCustomer">
+                        <PropertyRef Name="OrderId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asso_OrderCustomer">
+                        <PropertyRef Name="BpId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Asso_DeliveryDetails" sap:content-version="1">
+                <End Type="ZBIP_ODATA_SRV.Orders" Multiplicity="1" Role="FromRole_Asso_DeliveryDetails"/>
+                <End Type="ZBIP_ODATA_SRV.DeliveryDetails" Multiplicity="1" Role="ToRole_Asso_DeliveryDetails"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asso_DeliveryDetails">
+                        <PropertyRef Name="OrderId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asso_DeliveryDetails">
+                        <PropertyRef Name="OrderNo"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItemAssociation" sap:content-version="1">
+                <End Type="ZBIP_ODATA_SRV.Orders" Multiplicity="1" Role="FromRole_OrderItemAssociation"/>
+                <End Type="ZBIP_ODATA_SRV.OrderItems" Multiplicity="*" Role="ToRole_OrderItemAssociation"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OrderItemAssociation">
+                        <PropertyRef Name="OrderId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OrderItemAssociation">
+                        <PropertyRef Name="ItemId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZBIP_ODATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ProductsSet" EntityType="ZBIP_ODATA_SRV.Products" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OrdersSet" EntityType="ZBIP_ODATA_SRV.Orders" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OrderItemsSet" EntityType="ZBIP_ODATA_SRV.OrderItems" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CustomerSet" EntityType="ZBIP_ODATA_SRV.Customer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CustomerAddressSet" EntityType="ZBIP_ODATA_SRV.CustomerAddress" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DeliveryDetailsSet" EntityType="ZBIP_ODATA_SRV.DeliveryDetails" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductAttachmentSet" EntityType="ZBIP_ODATA_SRV.ProductAttachment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="OrderItemAssociationSet" Association="ZBIP_ODATA_SRV.OrderItemAssociation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrdersSet" Role="FromRole_OrderItemAssociation"/>
+                    <End EntitySet="OrderItemsSet" Role="ToRole_OrderItemAssociation"/>
+                </AssociationSet>
+                <AssociationSet Name="Asso_DeliveryDetailsSet" Association="ZBIP_ODATA_SRV.Asso_DeliveryDetails" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrdersSet" Role="FromRole_Asso_DeliveryDetails"/>
+                    <End EntitySet="DeliveryDetailsSet" Role="ToRole_Asso_DeliveryDetails"/>
+                </AssociationSet>
+                <AssociationSet Name="Asso_CustomerAddressSet" Association="ZBIP_ODATA_SRV.Asso_CustomerAddress" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CustomerSet" Role="FromRole_Asso_CustomerAddress"/>
+                    <End EntitySet="CustomerAddressSet" Role="ToRole_Asso_CustomerAddress"/>
+                </AssociationSet>
+                <AssociationSet Name="Asso_OrderCustomerSet" Association="ZBIP_ODATA_SRV.Asso_OrderCustomer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrdersSet" Role="FromRole_Asso_OrderCustomer"/>
+                    <End EntitySet="CustomerSet" Role="ToRole_Asso_OrderCustomer"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZBIP_ODATA_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZBIP_ODATA_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
